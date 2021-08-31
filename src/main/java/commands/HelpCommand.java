@@ -21,9 +21,9 @@ public class HelpCommand extends Command {
                 .setTimestamp(event.getMessage().getTimeCreated())
                 .setFooter("Requested by " + event.getAuthor().getName(), event.getAuthor().getAvatarUrl())
                 .setAuthor("Help Menu (s&)", null, event.getJDA().getSelfUser().getAvatarUrl())
-                .addField("Information", "``help``, ``avatar``", true)
-                .addField("Music", "``join``, ``play``, ``stop``, ``pause``, ``resume``", true)
-                .addField("Moderation", "``clear``", true)
+                .addField("Information", "`help`, `avatar`", true)
+                .addField("Music", "`join`, `play`, `stop`, `pause`, `resume`", true)
+                .addField("Moderation", "`clear`", true)
                 .build();
         event.reply(embed);
     }
