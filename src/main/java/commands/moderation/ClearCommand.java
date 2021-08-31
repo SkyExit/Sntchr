@@ -2,8 +2,10 @@ package commands.moderation;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.sedmelluq.discord.lavaplayer.remote.message.UnknownMessage;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
@@ -30,8 +32,12 @@ public class ClearCommand extends Command {
                     event.getMessage().delete().queue();
                     List<Message> messages = event.getChannel().getHistory().retrievePast(values).complete();
                     event.getTextChannel().deleteMessages(messages).queue();
-                    event.getChannel().sendMessage("✅ " + args.toString() + " messages deleted!").queue(m ->
-                            m.delete().queueAfter(5, TimeUnit.SECONDS));
+                    try {
+                        event.getChannel().sendMessage("✅ " + args.toString() + " messages deleted!").queue(m ->
+                                m.delete().queueAfter(5, TimeUnit.SECONDS));
+                    } catch (ErrorResponseException ignored) {
+                    }
+
                 } else {
                     event.reply("There's an maximum of 100 Messages to clear at once");
                 }
