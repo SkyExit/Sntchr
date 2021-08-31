@@ -21,21 +21,23 @@ public class ClearCommand extends Command {
 
     @Override
     protected void execute(CommandEvent event) {
-        OffsetDateTime twoWeeksAgo = OffsetDateTime.now().minus(2, ChronoUnit.WEEKS);
-
         if (event.getMember().hasPermission(event.getTextChannel(), Permission.MESSAGE_MANAGE)) {
-            event.getMessage().delete().queue();
             String args = event.getArgs();
             if (!args.isEmpty()) {
                 if (Integer.parseInt(args) < 100 && Integer.parseInt(args) > 1) {
                     int values = Integer.parseInt(args);
-                    event.getMessage().delete().queue();
+                    try {
+                        event.getMessage().delete().queue();
+                    } catch (ErrorResponseException e) {
+                        //
+                    }
                     List<Message> messages = event.getChannel().getHistory().retrievePast(values).complete();
                     event.getTextChannel().deleteMessages(messages).queue();
                     try {
                         event.getChannel().sendMessage("✅ " + args.toString() + " messages deleted!").queue(m ->
                                 m.delete().queueAfter(5, TimeUnit.SECONDS));
-                    } catch (ErrorResponseException ignored) {
+                    } catch (ErrorResponseException e) {
+                        //
                     }
 
                 } else {
