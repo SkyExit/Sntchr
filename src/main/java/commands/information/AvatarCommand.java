@@ -1,4 +1,4 @@
-package commands;
+package commands.information;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;

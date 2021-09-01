@@ -11,11 +11,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.apache.commons.codec.binary.Hex;
-import org.w3c.dom.css.RGBColor;
 
 import java.awt.*;
 import java.time.OffsetDateTime;
+import java.util.concurrent.TimeUnit;
 
 public class NowPlayingCommand extends Command {
     public NowPlayingCommand() {
@@ -48,13 +47,19 @@ public class NowPlayingCommand extends Command {
         final AudioTrackInfo trackInfo = playingTrack.getInfo();
         EmbedBuilder builder = new EmbedBuilder()
                 .setTitle(trackInfo.title, trackInfo.uri)
-                .setDescription("```" + playingTrack.getPosition() + "/" + playingTrack.getDuration() + "```")
+                .setDescription(        "```" + TimeUnit.MILLISECONDS.toMinutes(playingTrack.getPosition()) + "m " +
+                                        (TimeUnit.MILLISECONDS.toSeconds(playingTrack.getPosition()) - (TimeUnit.MILLISECONDS.toMinutes(playingTrack.getPosition()) * 60)) + "s "
+                                        + "/ " +
+                                        TimeUnit.MILLISECONDS.toMinutes(playingTrack.getDuration()) + "m " +
+                                        (TimeUnit.MILLISECONDS.toSeconds(playingTrack.getDuration()) - (TimeUnit.MILLISECONDS.toMinutes(playingTrack.getDuration()) * 60)) + "s " +
+                                        "```")
+                //.setDescription("```" + playingTrack.getPosition() + "/" + playingTrack.getDuration() + "```")
                 .setColor(new Color(59, 178, 237))
                 .setTimestamp(OffsetDateTime.now())
                 .setFooter("Requested by " + event.getMember().getUser().getName(), null)
-                .setThumbnail(trackInfo.uri)
-                .setAuthor("Added to Queue", null, event.getMember().getUser().getAvatarUrl())
-                .addField("Interpret", trackInfo.author, true)
-                .addField("Views", "these last two", true);
+                .setThumbnail("https://img.youtube.com/vi/" + playingTrack.getIdentifier() + "/default.jpg")
+                .setAuthor("Currently Playing", null, event.getMember().getUser().getAvatarUrl())
+                .addField("Interpret", trackInfo.author, true);
+        event.reply(builder.build());
     }
 }

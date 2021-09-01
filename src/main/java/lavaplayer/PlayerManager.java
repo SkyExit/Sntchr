@@ -8,13 +8,19 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.awt.*;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class PlayerManager {
     private static PlayerManager INSTANCE;
@@ -39,34 +45,57 @@ public class PlayerManager {
         });
     }
 
-    public void loadAndPlay(TextChannel channel, String trackURL) {
+    public void loadAndPlay(TextChannel channel, String trackURL, Member member) {
         final GuildMusicManager musicManager = this.getMusicManager(channel.getGuild());
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackURL, new AudioLoadResultHandler() {
             @Override
-            public void trackLoaded(AudioTrack track) {
-                musicManager.scheduler.queue(track);
+            public void trackLoaded(AudioTrack playingTrack) {
+                musicManager.scheduler.queue(playingTrack);
 
-                channel.sendMessage("Adding to queue: `")
-                        .append(track.getInfo().title)
-                        .append("` by `")
-                        .append(track.getInfo().author)
-                        .append('`')
-                        .queue();
+                final AudioTrackInfo trackInfo = playingTrack.getInfo();
+                EmbedBuilder builder = new EmbedBuilder()
+                        .setTitle(trackInfo.title, trackInfo.uri)
+                        .setDescription(        "```" + TimeUnit.MILLISECONDS.toMinutes(playingTrack.getPosition()) + "m " +
+                                (TimeUnit.MILLISECONDS.toSeconds(playingTrack.getPosition()) - (TimeUnit.MILLISECONDS.toMinutes(playingTrack.getPosition()) * 60)) + "s "
+                                + "/ " +
+                                TimeUnit.MILLISECONDS.toMinutes(playingTrack.getDuration()) + "m " +
+                                (TimeUnit.MILLISECONDS.toSeconds(playingTrack.getDuration()) - (TimeUnit.MILLISECONDS.toMinutes(playingTrack.getDuration()) * 60)) + "s " +
+                                "```")
+                        //.setDescription("```" + playingTrack.getPosition() + "/" + playingTrack.getDuration() + "```")
+                        .setColor(new Color(59, 178, 237))
+                        .setTimestamp(OffsetDateTime.now())
+                        .setFooter("Requested by " + member.getUser().getName(), null)
+                        .setThumbnail("https://img.youtube.com/vi/" + playingTrack.getIdentifier() + "/default.jpg")
+                        .setAuthor("Added to Queue", null, member.getUser().getAvatarUrl())
+                        .addField("Interpret", trackInfo.author, true);
+                channel.sendMessage(builder.build()).queue();
             }
 
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
                 final List<AudioTrack> tracks = audioPlaylist.getTracks();
-                channel.sendMessage("Adding to Queue: `")
-                        .append(tracks.get(0).getInfo().title)
-                        .append("`  by  `")
-                        .append(tracks.get(0).getInfo().author)
-                        .append("`")
-                        .queue();
+                final AudioTrack playingTrack = tracks.get(0);
 
-                    musicManager.scheduler.queue(tracks.get(0));
+                musicManager.scheduler.queue(tracks.get(0));
 
+                final AudioTrackInfo trackInfo = tracks.get(0).getInfo();
+                EmbedBuilder builder = new EmbedBuilder()
+                        .setTitle(trackInfo.title, trackInfo.uri)
+                        .setDescription(        "```" + TimeUnit.MILLISECONDS.toMinutes(playingTrack.getPosition()) + "m " +
+                                (TimeUnit.MILLISECONDS.toSeconds(playingTrack.getPosition()) - (TimeUnit.MILLISECONDS.toMinutes(playingTrack.getPosition()) * 60)) + "s "
+                                + "/ " +
+                                TimeUnit.MILLISECONDS.toMinutes(playingTrack.getDuration()) + "m " +
+                                (TimeUnit.MILLISECONDS.toSeconds(playingTrack.getDuration()) - (TimeUnit.MILLISECONDS.toMinutes(playingTrack.getDuration()) * 60)) + "s " +
+                                "```")
+                        //.setDescription("```" + playingTrack.getPosition() + "/" + playingTrack.getDuration() + "```")
+                        .setColor(new Color(59, 178, 237))
+                        .setTimestamp(OffsetDateTime.now())
+                        .setFooter("Requested by " + member.getUser().getName(), null)
+                        .setThumbnail("https://img.youtube.com/vi/" + playingTrack.getIdentifier() + "/default.jpg")
+                        .setAuthor("Added to Queue", null, member.getUser().getAvatarUrl())
+                        .addField("Interpret", trackInfo.author, true);
+                channel.sendMessage(builder.build()).queue();
             }
 
             /*

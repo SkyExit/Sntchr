@@ -24,7 +24,7 @@ public class ClearCommand extends Command {
         if (event.getMember().hasPermission(event.getTextChannel(), Permission.MESSAGE_MANAGE)) {
             String args = event.getArgs();
             if (!args.isEmpty()) {
-                if (Integer.parseInt(args) < 100 && Integer.parseInt(args) > 1) {
+                if (Integer.parseInt(args) <= 100 && Integer.parseInt(args) > 1) {
                     int values = Integer.parseInt(args);
                     try {
                         event.getMessage().delete().queue();

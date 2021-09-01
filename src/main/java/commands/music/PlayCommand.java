@@ -53,7 +53,7 @@ public class PlayCommand extends Command {
             link = "ytsearch:" + link;
         }
 
-        PlayerManager.getInstance().loadAndPlay(channel, link);
+        PlayerManager.getInstance().loadAndPlay(channel, link, event.getMember());
     }
 
     private boolean isURL(String link) {

@@ -1,15 +1,13 @@
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import commands.AvatarCommand;
-import commands.HelpCommand;
+import commands.information.AvatarCommand;
+import commands.information.HelpCommand;
 import commands.moderation.ClearCommand;
 import commands.music.*;
 import events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-
-import java.util.EnumSet;
 
 public class Bot {
 
@@ -21,7 +19,8 @@ public class Bot {
         CommandClientBuilder builder = new CommandClientBuilder();
         builder.setPrefix("s&");
         builder.setOwnerId("881856922410700830"); //Bot ID
-        builder.setHelpWord("helpme");
+        builder.useHelpBuilder(false);
+        //builder.setHelpWord(null);
 
         builder.addCommand(new AvatarCommand());
         builder.addCommand(new HelpCommand());
@@ -34,6 +33,7 @@ public class Bot {
         builder.addCommand(new SkipCommand());
         builder.addCommand(new VolumeCommand());
         builder.addCommand(new NowPlayingCommand());
+        builder.addCommand(new QueueCommand());
 
         builder.addCommand(new ClearCommand());
 
