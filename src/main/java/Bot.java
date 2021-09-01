@@ -32,6 +32,8 @@ public class Bot {
         builder.addCommand(new PauseCommand());
         builder.addCommand(new ResumeCommand());
         builder.addCommand(new SkipCommand());
+        builder.addCommand(new VolumeCommand());
+        builder.addCommand(new NowPlayingCommand());
 
         builder.addCommand(new ClearCommand());
 

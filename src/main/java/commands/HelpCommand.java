@@ -22,7 +22,7 @@ public class HelpCommand extends Command {
                 .setFooter("Requested by " + event.getAuthor().getName(), event.getAuthor().getAvatarUrl())
                 .setAuthor("Help Menu (s&)", null, event.getJDA().getSelfUser().getAvatarUrl())
                 .addField("Information", "`help`, `avatar`", true)
-                .addField("Music", "`join`, `play`, `stop`, `pause`, `resume`, `skip`", true)
+                .addField("Music", "`join`, `play`, `stop`, `pause`, `resume`, `skip`, `volume`", true)
                 .addField("Moderation", "`clear`", true)
                 .build();
         event.reply(embed);

@@ -2,6 +2,8 @@ package commands.music;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import lavaplayer.GuildMusicManager;
+import lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -29,6 +31,7 @@ public class JoinCommand extends Command {
 
         final Member member = event.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
 
         assert memberVoiceState != null;
         if(!memberVoiceState.inVoiceChannel()) {
@@ -40,6 +43,7 @@ public class JoinCommand extends Command {
         final VoiceChannel memberVoiceChannel = memberVoiceState.getChannel();
 
         if(self.hasPermission(Permission.VOICE_CONNECT)) {
+            musicManager.audioPlayer.setVolume(100);
             audioManager.openAudioConnection(memberVoiceChannel);
             assert memberVoiceChannel != null;
             event.reply("Connecting to " + memberVoiceChannel.getName());
