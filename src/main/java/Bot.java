@@ -31,6 +31,7 @@ public class Bot {
         builder.addCommand(new StopCommand());
         builder.addCommand(new PauseCommand());
         builder.addCommand(new ResumeCommand());
+        builder.addCommand(new SkipCommand());
 
         builder.addCommand(new ClearCommand());
 
