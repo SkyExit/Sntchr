@@ -5,6 +5,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.components.Button;
 
 import java.awt.*;
 
@@ -23,7 +24,7 @@ public class HelpCommand extends Command {
                 .setFooter("Requested by " + event.getAuthor().getName(), event.getAuthor().getAvatarUrl())
                 .setAuthor("Help Menu (s&)", null, event.getJDA().getSelfUser().getAvatarUrl())
                 .addField("Information", "`help`, `avatar`", true)
-                .addField("Music", "`join`, `play`, `stop`, `pause`, `resume`, `skip`, `volume`, `nowplaying`, `queue`", true)
+                .addField("Music", "`join`, `play`, `stop`, `pause`, `resume`, `skip`, `volume`, `nowplaying`, `queue`, `repeat`", true)
                 .addField("Moderation", "`clear`", true)
                 .build();
         event.reply(embed);

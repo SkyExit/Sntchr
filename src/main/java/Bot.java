@@ -34,9 +34,9 @@ public class Bot {
         builder.addCommand(new VolumeCommand());
         builder.addCommand(new NowPlayingCommand());
         builder.addCommand(new QueueCommand());
+        builder.addCommand(new RepeatCommand());
 
         builder.addCommand(new ClearCommand());
-
 
         CommandClient client = builder.build();
         jda.addEventListener(client);

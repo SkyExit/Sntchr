@@ -75,10 +75,9 @@ public class PlayerManager {
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
                 final List<AudioTrack> tracks = audioPlaylist.getTracks();
+
                 final AudioTrack playingTrack = tracks.get(0);
-
                 musicManager.scheduler.queue(tracks.get(0));
-
                 final AudioTrackInfo trackInfo = tracks.get(0).getInfo();
                 EmbedBuilder builder = new EmbedBuilder()
                         .setTitle(trackInfo.title, trackInfo.uri)
