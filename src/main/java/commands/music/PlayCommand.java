@@ -2,10 +2,14 @@ package commands.music;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import lavaplayer.GuildMusicManager;
 import lavaplayer.PlayerManager;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -21,16 +25,10 @@ public class PlayCommand extends Command {
     protected void execute(CommandEvent event) {
         final TextChannel channel = event.getTextChannel();
         final Member self = event.getSelfMember();
-        final GuildVoiceState selfVoiceState = self.getVoiceState();
+        GuildVoiceState selfVoiceState = self.getVoiceState();
 
         if(event.getArgs().isEmpty()) {
             event.reply("Please provide an url or a song name!");
-            return;
-        }
-
-        assert selfVoiceState != null;
-        if(!selfVoiceState.inVoiceChannel()) {
-            event.reply("I need to be in a voice channel!");
             return;
         }
 
@@ -40,6 +38,23 @@ public class PlayCommand extends Command {
         if(!memberVoiceState.inVoiceChannel()) {
             event.reply("You need to be in a voice channel!");
             return;
+        }
+
+        final AudioManager audioManager = event.getGuild().getAudioManager();
+        final VoiceChannel memberVoiceChannel = memberVoiceState.getChannel();
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+
+        assert selfVoiceState != null;
+        if(!selfVoiceState.inVoiceChannel()) {
+            if(self.hasPermission(Permission.VOICE_CONNECT)) {
+                musicManager.audioPlayer.setVolume(100);
+                audioManager.openAudioConnection(memberVoiceChannel);
+                assert memberVoiceChannel != null;
+                event.reply("Connecting to " + memberVoiceChannel.getName());
+                selfVoiceState = memberVoiceState;
+            } else {
+                event.reply("I can't connect to the channel because i don't have permissions");
+            }
         }
 
         if(!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {

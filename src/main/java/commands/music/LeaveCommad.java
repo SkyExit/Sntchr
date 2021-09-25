@@ -8,14 +8,15 @@ import lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.managers.AudioManager;
 
-public class RepeatCommand extends Command {
-    public RepeatCommand() {
-        this.name = "repeat";
-        this.help = "Repeat the current Song!";
-        this.aliases = new String[]{"loop"};
+public class LeaveCommad extends Command {
+    public LeaveCommad() {
+        this.name = "leave";
+        this.help = "Leave's the channel";
         this.category = new Category("Music");
     }
+
     @Override
     protected void execute(CommandEvent event) {
         final TextChannel channel = event.getTextChannel();
@@ -41,17 +42,11 @@ public class RepeatCommand extends Command {
             return;
         }
 
-        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-        final AudioPlayer audioPlayer = musicManager.audioPlayer;
+        final AudioManager audioManager = event.getGuild().getAudioManager();
+        audioManager.closeAudioConnection();
 
-        if(audioPlayer.getPlayingTrack() == null) {
-            event.reply("There is no track playing");
-            return;
-        }
+        event.reply("I have left the voice channel");
 
-        final boolean newRepeating = !musicManager.scheduler.repeating;
-        musicManager.scheduler.repeating = newRepeating;
 
-        event.reply("The Player has been set to " + (newRepeating ? "**repeating**" : "**normal**"));
     }
 }

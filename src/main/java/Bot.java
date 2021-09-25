@@ -2,6 +2,8 @@ import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import commands.information.AvatarCommand;
 import commands.information.HelpCommand;
+import commands.information.ServerInfoCommand;
+import commands.information.UserInfoCommand;
 import commands.moderation.ClearCommand;
 import commands.music.*;
 import events.StatusManager;
@@ -22,9 +24,14 @@ public class Bot {
         builder.useHelpBuilder(false);
         //builder.setHelpWord(null);
 
+
+        //Information
         builder.addCommand(new AvatarCommand());
         builder.addCommand(new HelpCommand());
+        builder.addCommand(new ServerInfoCommand());
+        builder.addCommand(new UserInfoCommand());
 
+        //Music
         builder.addCommand(new JoinCommand());
         builder.addCommand(new PlayCommand());
         builder.addCommand(new StopCommand());
@@ -35,7 +42,9 @@ public class Bot {
         builder.addCommand(new NowPlayingCommand());
         builder.addCommand(new QueueCommand());
         builder.addCommand(new RepeatCommand());
+        builder.addCommand(new LeaveCommad());
 
+        //Moderation
         builder.addCommand(new ClearCommand());
 
         CommandClient client = builder.build();

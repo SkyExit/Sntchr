@@ -31,8 +31,8 @@
             <groupId>com.jagrosh</groupId>
             <artifactId>jda-utilities</artifactId>
             <version>3.0.5</version>
-            <scope>compile</scope>
             <type>pom</type>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>
@@ -48,6 +48,11 @@
         </dependency>
     </dependencies>
     <repositories>
+        <repository>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
         <repository>
             <id>dv8tion</id>
             <name>m2-dv8tion</name>

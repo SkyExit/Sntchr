@@ -16,6 +16,7 @@ public class JoinCommand extends Command {
         this.name = "join";
         this.help = "Join's the channel";
         this.category = new Category("Music");
+        this.aliases = new String[]{"connect"};
     }
 
     @Override
