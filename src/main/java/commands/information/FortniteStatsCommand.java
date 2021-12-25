@@ -36,9 +36,9 @@ public class FortniteStatsCommand extends Command {
             String[] args = event.getArgs().split(" ");
             String accountName = args[0];
             String accountPlatform = switch (args[1]) {
-                case "epic" -> "epic";
-                case "ps4" -> "psn";
-                case "xbox" -> "xbl";
+                case "pc", "epic" -> "epic";
+                case "ps4", "psn" -> "psn";
+                case "xbox", "xbl" -> "xbl";
                 default -> "epic";
             };
 
