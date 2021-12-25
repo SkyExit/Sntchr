@@ -1,9 +1,6 @@
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import commands.information.AvatarCommand;
-import commands.information.HelpCommand;
-import commands.information.ServerInfoCommand;
-import commands.information.UserInfoCommand;
+import commands.information.*;
 import commands.moderation.ClearCommand;
 import commands.music.*;
 import events.StatusManager;
@@ -43,6 +40,7 @@ public class Bot {
         builder.addCommand(new QueueCommand());
         builder.addCommand(new RepeatCommand());
         builder.addCommand(new LeaveCommad());
+        builder.addCommand(new FortniteStatsCommand());
 
         //Moderation
         builder.addCommand(new ClearCommand());
