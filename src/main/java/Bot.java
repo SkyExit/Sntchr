@@ -1,5 +1,7 @@
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
+import commands.fortnite.FortniteNewsCommand;
+import commands.fortnite.FortniteStatsCommand;
 import commands.information.*;
 import commands.moderation.ClearCommand;
 import commands.music.*;
@@ -40,7 +42,10 @@ public class Bot {
         builder.addCommand(new QueueCommand());
         builder.addCommand(new RepeatCommand());
         builder.addCommand(new LeaveCommad());
+
+        //Fortnite
         builder.addCommand(new FortniteStatsCommand());
+        builder.addCommand(new FortniteNewsCommand());
 
         //Moderation
         builder.addCommand(new ClearCommand());
