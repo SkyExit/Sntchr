@@ -14,25 +14,27 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.Scanner;
 
-public class FortniteNewsCommand extends Command {
-    public FortniteNewsCommand() {
-        this.name = "fnnews";
-        this.help = "Shows the Fortnite news!";
+public class FortniteMapCommand extends Command {
+    public FortniteMapCommand() {
+        this.name = "fnmap";
+        this.help = "Shows the Fortnite map!";
         this.category = new Category("Fortnite");
     }
 
     @Override
     protected void execute(CommandEvent event) {
         //API REQUESTER
+        String[] args = event.getArgs().split(" ");
         Response response = null;
         int responsecode = 0;
         try {
             OkHttpClient client = new OkHttpClient.Builder()
                     .build();
 
-            URL url = new URL("https://fortnite-api.com/v2/news?language=de");
+            URL url = new URL("https://fortnite-api.com/v1/map?language=de");
             Request request = new Request.Builder()
                     .url(url)
                     .addHeader("Content-Type", "application/json")
@@ -71,13 +73,28 @@ public class FortniteNewsCommand extends Command {
 
 
         //DATA WORKER
+        if(args.length == 1) {
+            if(Objects.equals(args[0], "blank")) {
+                assert jsonObject != null;
+                MessageEmbed embed = new EmbedBuilder()
+                        .setTitle("The Fortnite Map")
+                        .setColor(Color.RED)
+                        .setTimestamp(OffsetDateTime.now())
+                        .setFooter("Requested by", event.getAuthor().getAvatarUrl())
+                        .setImage(jsonObject.getJSONObject("data").getJSONObject("images").getString("blank"))
+                        .build();
+                event.reply(embed);
+                return;
+            }
+        }
+
         assert jsonObject != null;
         MessageEmbed embed = new EmbedBuilder()
-                .setTitle("What's up in Fortnite?")
-                .setColor(Color.CYAN)
+                .setTitle("The Fortnite Map")
+                .setColor(Color.RED)
                 .setTimestamp(OffsetDateTime.now())
-                .setFooter("Requested by", event.getAuthor().getAvatarUrl())
-                .setImage(jsonObject.getJSONObject("data").getJSONObject("br").getString("image"))
+                .setFooter("use 's&fnmap blank' for blank map!", event.getAuthor().getAvatarUrl())
+                .setImage(jsonObject.getJSONObject("data").getJSONObject("images").getString("pois"))
                 .build();
         event.reply(embed);
     }

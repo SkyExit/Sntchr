@@ -1,5 +1,6 @@
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
+import commands.fortnite.FortniteMapCommand;
 import commands.fortnite.FortniteNewsCommand;
 import commands.fortnite.FortniteStatsCommand;
 import commands.information.*;
@@ -46,6 +47,7 @@ public class Bot {
         //Fortnite
         builder.addCommand(new FortniteStatsCommand());
         builder.addCommand(new FortniteNewsCommand());
+        builder.addCommand(new FortniteMapCommand());
 
         //Moderation
         builder.addCommand(new ClearCommand());
