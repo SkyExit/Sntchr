@@ -45,12 +45,10 @@ public class Bot {
         builder.addCommand(new RepeatCommand());
         builder.addCommand(new LeaveCommad());
 
-        //Fortnite
+        //Gaming
         builder.addCommand(new FortniteStatsCommand());
         builder.addCommand(new FortniteNewsCommand());
         builder.addCommand(new FortniteMapCommand());
-
-        //CR
         builder.addCommand(new ClashRoyaleStatsCommand());
 
         //Moderation
