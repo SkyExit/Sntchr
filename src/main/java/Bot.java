@@ -1,8 +1,9 @@
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import commands.fortnite.FortniteMapCommand;
-import commands.fortnite.FortniteNewsCommand;
-import commands.fortnite.FortniteStatsCommand;
+import commands.apis.ClashRoyaleStatsCommand;
+import commands.apis.FortniteMapCommand;
+import commands.apis.FortniteNewsCommand;
+import commands.apis.FortniteStatsCommand;
 import commands.information.*;
 import commands.moderation.ClearCommand;
 import commands.music.*;
@@ -48,6 +49,9 @@ public class Bot {
         builder.addCommand(new FortniteStatsCommand());
         builder.addCommand(new FortniteNewsCommand());
         builder.addCommand(new FortniteMapCommand());
+
+        //CR
+        builder.addCommand(new ClashRoyaleStatsCommand());
 
         //Moderation
         builder.addCommand(new ClearCommand());

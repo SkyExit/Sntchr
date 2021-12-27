@@ -26,7 +26,7 @@ public class HelpCommand extends Command {
                 .addField("Information", "`help`, `avatar`, `serverinfo`, `userinfo`", true)
                 .addField("Music", "`join/connect`, `play`, `stop`, `pause`, `resume`, `skip`, `volume`, `nowplaying`, `queue`, `loop/repeat`", true)
                 .addField("Moderation", "`clear`", true)
-                .addField("Fortnite", "`s&fnstats`, `s&fnnews`, `s&fnmap`", true)
+                .addField("Gaming", "`s&fnstats`, `s&fnnews`, `s&fnmap`, `s&crstats`", true)
                 .build();
         event.reply(embed);
     }

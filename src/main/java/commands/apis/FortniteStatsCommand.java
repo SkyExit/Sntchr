@@ -1,4 +1,4 @@
-package commands.fortnite;
+package commands.apis;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -13,7 +13,6 @@ import org.json.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.time.OffsetDateTime;
 import java.util.Scanner;
@@ -51,7 +50,6 @@ public class FortniteStatsCommand extends Command {
             } catch (IndexOutOfBoundsException e) {
                 //e.printStackTrace();
             }
-
 
 
             //URL BUILDER
@@ -98,13 +96,16 @@ public class FortniteStatsCommand extends Command {
             }
 
 
-
             //DATA MINER
             JSONObject jsonObject = null;
             try {
-                if (responsecode != 200) {
-                    throw new RuntimeException("HttpResponseCode: " + responsecode);
-                } else {
+                if (responsecode == 403) {
+                    event.reply("Requested Account Stats are privat!");
+                    return;
+                } else if(responsecode == 404) {
+                    event.reply("Requested Account Stats aren't available because the account doesn't exist!");
+                    return;
+                } else if(responsecode == 200) {
 
                     String inline = "";
                     Scanner scanner = new Scanner(response.body().charStream());
@@ -115,12 +116,15 @@ public class FortniteStatsCommand extends Command {
 
                     jsonObject = new JSONObject(inline);
                     //System.out.println(inline);
+                } else {
+                    throw new RuntimeException("HttpResponseCode: " + responsecode);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             response.close();
+
 
             //DATA WORKER
             try {
