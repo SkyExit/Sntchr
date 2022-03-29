@@ -11,11 +11,12 @@ import events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import shortcuts.BotToken;
 
 public class Bot {
 
     public static void main(String args[]) throws Exception {
-        JDA jda = JDABuilder.createDefault("ODgxODU2OTIyNDEwNzAwODMw.YSy7Qg.9lv6nQDh0eRpVfVLrJ0Mp1CY85E")
+        JDA jda = JDABuilder.createDefault(BotToken.getBotToken())
                 .enableCache(CacheFlag.VOICE_STATE)
                 .build();
 
