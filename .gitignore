@@ -24,3 +24,4 @@
 hs_err_pid*
 
 /src/main/java/shortcuts/BotToken.java
+!/src/main/java/shortcuts/BotToken.java
