@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v1.10.165">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v1.10.166" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -136,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648581229855</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="v1.10.166">
+      <created>1648581459538</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1648581459538</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -158,6 +163,7 @@
     <MESSAGE value="v1.10.155" />
     <MESSAGE value="v1.10.162" />
     <MESSAGE value="v1.10.165" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.10.165" />
+    <MESSAGE value="v1.10.166" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.10.166" />
   </component>
 </project>
