@@ -9,7 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v1.10.166" />
+    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v1.10.167">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/shortcuts/BotToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shortcuts/BotToken.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +27,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -141,7 +151,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648581459538</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="v1.10.166">
+      <created>1648581513012</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1648581513012</updated>
+    </task>
+    <task id="LOCAL-00009" summary="v1.10.167">
+      <created>1648581522884</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1648581522884</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -164,6 +188,7 @@
     <MESSAGE value="v1.10.162" />
     <MESSAGE value="v1.10.165" />
     <MESSAGE value="v1.10.166" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.10.166" />
+    <MESSAGE value="v1.10.167" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.10.167" />
   </component>
 </project>
