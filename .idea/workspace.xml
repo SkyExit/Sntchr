@@ -9,9 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v1.10.167">
+    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v1.10.170">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/shortcuts/BotToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shortcuts/BotToken.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +56,11 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.21335079" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Laurin\Desktop\CodingStuff\Java\Sntchr" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
@@ -165,7 +170,35 @@
       <option name="project" value="LOCAL" />
       <updated>1648581522884</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="v1.10.168">
+      <created>1648581604840</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1648581604840</updated>
+    </task>
+    <task id="LOCAL-00011" summary="v1.10.169">
+      <created>1648581648632</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1648581648632</updated>
+    </task>
+    <task id="LOCAL-00012" summary="v1.10.170">
+      <created>1648581692024</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1648581692024</updated>
+    </task>
+    <task id="LOCAL-00013" summary="v1.10.170">
+      <created>1648581722575</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1648581722575</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -189,6 +222,9 @@
     <MESSAGE value="v1.10.165" />
     <MESSAGE value="v1.10.166" />
     <MESSAGE value="v1.10.167" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.10.167" />
+    <MESSAGE value="v1.10.168" />
+    <MESSAGE value="v1.10.169" />
+    <MESSAGE value="v1.10.170" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.10.170" />
   </component>
 </project>
