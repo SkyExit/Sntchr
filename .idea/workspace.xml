@@ -9,8 +9,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v1.10.171">
-      <change beforePath="$PROJECT_DIR$/src/main/java/shortcuts/BotToken.java" beforeDir="false" />
+    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v1.10.172">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/sntchr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/sntchr.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/JDA-4.3.0_313.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/kotlin-stdlib-1.4.10.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/kotlin-stdlib-common-1.4.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/okhttp-4.9.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/okio-2.8.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/slf4j-api-1.7.25.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/sntchr.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Sntchr/sntchr.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Sntchr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bot.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +47,10 @@
       </GitPushTagMode>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -46,14 +65,18 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/src/main/java/shortcuts/BotToken.java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/json-simple-1.1.1.jar" />
+    <property name="last_opened_file_path" value="D:/GitHub/Sntchr" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.21335079" />
+    <property name="project.structure.side.proportion" value="0.16482301" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
@@ -61,7 +84,21 @@
       <recent name="C:\Users\Laurin\Desktop\CodingStuff\Java\Sntchr" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JAR Application.SNTCHR-JAR">
+    <configuration name="Sntchr" type="Application" factoryName="Application" activateToolWindowBeforeRun="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Sntchr" />
+      <module name="sntchr" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SNTCHR-JAR" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/Sntchr/sntchr.jar" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\Laurin\Desktop\CodingStuff\Java\Sntchr" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="16" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -96,6 +133,16 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.Sntchr" />
+      <item itemvalue="JAR Application.SNTCHR-JAR" />
+      <item itemvalue="Maven.sntchr" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Sntchr" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -218,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648582020358</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="v1.10.172">
+      <created>1648582375954</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1648582375954</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -246,6 +300,7 @@
     <MESSAGE value="v1.10.169" />
     <MESSAGE value="v1.10.170" />
     <MESSAGE value="v1.10.171" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.10.171" />
+    <MESSAGE value="v1.10.172" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.10.172" />
   </component>
 </project>

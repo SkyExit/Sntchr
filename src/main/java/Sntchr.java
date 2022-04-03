@@ -4,28 +4,33 @@ import commands.apis.ClashRoyaleStatsCommand;
 import commands.apis.FortniteMapCommand;
 import commands.apis.FortniteNewsCommand;
 import commands.apis.FortniteStatsCommand;
-import commands.information.*;
+import commands.information.AvatarCommand;
+import commands.information.HelpCommand;
+import commands.information.ServerInfoCommand;
+import commands.information.UserInfoCommand;
 import commands.moderation.ClearCommand;
 import commands.music.*;
 import events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.apache.log4j.BasicConfigurator;
 import shortcuts.BotToken;
 
-public class Bot {
-
+public class Sntchr {
     public static void main(String args[]) throws Exception {
         JDA jda = JDABuilder.createDefault(BotToken.getBotToken())
                 .enableCache(CacheFlag.VOICE_STATE)
                 .build();
 
+        BasicConfigurator.configure();
+
         CommandClientBuilder builder = new CommandClientBuilder();
         builder.setPrefix("s&");
         builder.setOwnerId("881856922410700830"); //Bot ID
         builder.useHelpBuilder(false);
+        //builder.forceGuildOnly("803317679590473751");
         //builder.setHelpWord(null);
-
 
         //Information
         builder.addCommand(new AvatarCommand());
@@ -56,8 +61,8 @@ public class Bot {
         builder.addCommand(new ClearCommand());
 
         CommandClient client = builder.build();
-        jda.addEventListener(client);
 
+        jda.addEventListener(client);
         jda.addEventListener(new StatusManager());
     }
 }
