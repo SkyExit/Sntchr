@@ -14,7 +14,10 @@ import events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import shortcuts.BotToken;
 
 public class Sntchr {
@@ -23,18 +26,22 @@ public class Sntchr {
                 .enableCache(CacheFlag.VOICE_STATE)
                 .build();
 
+        Logger JDAlogger = Logger.getLogger("net.dv8tion");
+        Logger Jagroshlogger = Logger.getLogger("com.jagrosh");
+        JDAlogger.setLevel(Level.INFO);
+        Jagroshlogger.setLevel(Level.INFO);
         BasicConfigurator.configure();
 
         CommandClientBuilder builder = new CommandClientBuilder();
         builder.setPrefix("s&");
         builder.setOwnerId("881856922410700830"); //Bot ID
         builder.useHelpBuilder(false);
-        //builder.forceGuildOnly("803317679590473751");
+        builder.forceGuildOnly("803317679590473751");
         //builder.setHelpWord(null);
 
         //Information
-        builder.addCommand(new AvatarCommand());
-        builder.addCommand(new HelpCommand());
+        builder.addSlashCommand(new AvatarCommand());
+        builder.addSlashCommand(new HelpCommand());
         builder.addCommand(new ServerInfoCommand());
         builder.addCommand(new UserInfoCommand());
 

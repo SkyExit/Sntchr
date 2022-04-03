@@ -5,12 +5,6 @@
       <element id="archive" name="sntchr.jar">
         <element id="module-output" name="sntchr" />
       </element>
-      <element id="library" level="project" name="Maven: com.jagrosh:jda-utilities-command:3.0.5" />
-      <element id="library" level="project" name="Maven: com.jagrosh:jda-utilities-commons:3.0.5" />
-      <element id="library" level="project" name="Maven: com.jagrosh:jda-utilities-doc:3.0.5" />
-      <element id="library" level="project" name="Maven: com.jagrosh:jda-utilities-examples:3.0.5" />
-      <element id="library" level="project" name="Maven: com.jagrosh:jda-utilities-menu:3.0.5" />
-      <element id="library" level="project" name="Maven: com.jagrosh:jda-utilities-oauth2:3.0.5" />
       <element id="library" level="project" name="Maven: club.minnced:opus-java-api:1.1.0" />
       <element id="library" level="project" name="Maven: club.minnced:opus-java-natives:1.1.0" />
       <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.1" />
@@ -31,7 +25,6 @@
       <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.10" />
       <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.12" />
       <element id="library" level="project" name="Maven: org.jetbrains:annotations:16.0.1" />
-      <element id="library" level="project" name="Maven: org.json:json:20160810" />
       <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.12.1" />
       <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:4.2.2" />
       <element id="library" level="project" name="Maven: com.squareup.okio:okio:2.2.2" />
@@ -41,6 +34,14 @@
       <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.10" />
       <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.6.10" />
       <element id="library" level="project" name="Maven: net.dv8tion:JDA:4.4.0_352" />
+      <element id="library" level="project" name="Maven: pw.chew:jda-chewtils-command:1.24.1" />
+      <element id="library" level="project" name="Maven: pw.chew:jda-chewtils-commons:1.24.1" />
+      <element id="library" level="project" name="Maven: pw.chew:jda-chewtils-doc:1.24.1" />
+      <element id="library" level="project" name="Maven: pw.chew:jda-chewtils-examples:1.24.1" />
+      <element id="library" level="project" name="Maven: pw.chew:jda-chewtils-menu:1.24.1" />
+      <element id="library" level="project" name="Maven: pw.chew:jda-chewtils-oauth2:1.24.1" />
+      <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.9.0" />
+      <element id="library" level="project" name="Maven: org.json:json:20220320" />
     </root>
   </artifact>
 </component>
