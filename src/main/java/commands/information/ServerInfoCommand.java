@@ -2,16 +2,18 @@ package commands.information;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.command.SlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-public class ServerInfoCommand extends Command {
+public class ServerInfoCommand extends SlashCommand {
     public ServerInfoCommand() {
         this.name = "serverinfo";
         this.help = "Informations about the Server!";
@@ -19,7 +21,7 @@ public class ServerInfoCommand extends Command {
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void execute(SlashCommandEvent event) {
         MessageEmbed embed = new EmbedBuilder()
                 .setDescription("**Guild information for " + event.getGuild().getName() + "**")
                 .setColor(event.getGuild().getSelfMember().getColor())
@@ -41,6 +43,6 @@ public class ServerInfoCommand extends Command {
                         , true)
                 .setTimestamp(OffsetDateTime.now())
                 .build();
-        event.reply(embed);
+        event.replyEmbeds(embed).queue();
     }
 }

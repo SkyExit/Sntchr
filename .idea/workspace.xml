@@ -9,26 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v2.0.374">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/sntchr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/sntchr.xml" afterDir="false" />
+    <list default="true" id="5eb40061-4084-4eba-9e52-78298a991acf" name="Changes" comment="v2.1.127">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dir.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dir.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/jda-utilities-command-3.0.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/jda-utilities-commons-3.0.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/jda-utilities-doc-3.0.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/jda-utilities-examples-3.0.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/jda-utilities-menu-3.0.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/jda-utilities-oauth2-3.0.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/json-20160810.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Sntchr/sntchr.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Sntchr/sntchr.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Sntchr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Sntchr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/commands/information/AvatarCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/commands/information/AvatarCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/commands/information/HelpCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/commands/information/HelpCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/commands/information/AvatarCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/commands/information/AvatarCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/commands/information/HelpCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/commands/information/HelpCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/information/ServerInfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/commands/information/ServerInfoCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/information/UserInfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/commands/information/UserInfoCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +65,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.16482301" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.ChangelistConflict" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -282,7 +267,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648981266699</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="v2.1.127">
+      <created>1648987274106</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1648987274106</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -312,6 +304,7 @@
     <MESSAGE value="v1.10.171" />
     <MESSAGE value="v1.10.172" />
     <MESSAGE value="v2.0.374" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2.0.374" />
+    <MESSAGE value="v2.1.127" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.1.127" />
   </component>
 </project>

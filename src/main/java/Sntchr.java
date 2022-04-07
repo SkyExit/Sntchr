@@ -14,7 +14,6 @@ import events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -37,13 +36,12 @@ public class Sntchr {
         builder.setOwnerId("881856922410700830"); //Bot ID
         builder.useHelpBuilder(false);
         builder.forceGuildOnly("803317679590473751");
-        //builder.setHelpWord(null);
 
         //Information
         builder.addSlashCommand(new AvatarCommand());
         builder.addSlashCommand(new HelpCommand());
-        builder.addCommand(new ServerInfoCommand());
-        builder.addCommand(new UserInfoCommand());
+        builder.addSlashCommand(new ServerInfoCommand());
+        builder.addSlashCommand(new UserInfoCommand());
 
         //Music
         builder.addCommand(new JoinCommand());

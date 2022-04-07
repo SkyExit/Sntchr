@@ -2,28 +2,36 @@ package commands.information;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.command.SlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.EnumSet;
 
-public class UserInfoCommand extends Command {
+public class UserInfoCommand extends SlashCommand {
 
     public UserInfoCommand() {
         this.name = "userinfo";
         this.help = "Informations about the User!";
         this.category = new Category("Information");
+
+        this.options = Collections.singletonList(new OptionData(OptionType.USER, "member", "The member you want the avatar from").setRequired(false));
     }
 
     @Override
-    protected void execute(CommandEvent event) {
-        if(event.getArgs().isEmpty()) {
-            event.reply(createEmbed(event.getMessage().getMember()));
+    protected void execute(SlashCommandEvent event) {
+        Member member = event.getOption("member").getAsMember();
+        if(options.isEmpty()) {
+            event.replyEmbeds(createEmbed(event.getMember())).queue();
         } else {
-            event.reply(createEmbed(event.getMessage().getMentionedMembers().get(0)));
+            event.replyEmbeds(createEmbed((Member) event.getOption("member"))).queue();
         }
     }
 
