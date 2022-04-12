@@ -25,10 +25,8 @@ public class Sntchr {
                 .enableCache(CacheFlag.VOICE_STATE)
                 .build();
 
-        Logger JDAlogger = Logger.getLogger("net.dv8tion");
-        Logger Jagroshlogger = Logger.getLogger("com.jagrosh");
-        JDAlogger.setLevel(Level.INFO);
-        Jagroshlogger.setLevel(Level.INFO);
+        Logger.getLogger("net.dv8tion").setLevel(Level.INFO);
+        Logger.getLogger("com.jagrosh").setLevel(Level.INFO);
         BasicConfigurator.configure();
 
         CommandClientBuilder builder = new CommandClientBuilder();
@@ -63,7 +61,7 @@ public class Sntchr {
         builder.addCommand(new ClashRoyaleStatsCommand());
 
         //Moderation
-        builder.addCommand(new ClearCommand());
+        builder.addSlashCommand(new ClearCommand());
 
         CommandClient client = builder.build();
 

@@ -23,15 +23,21 @@ public class AvatarCommand extends SlashCommand {
         this.help = "Returns the mentioned users Avatar";
         this.category = new Category("Information");
 
-        this.options = Collections.singletonList(new OptionData(OptionType.USER, "member", "The member you want the avatar from").setRequired(true));
+        this.options = Collections.singletonList(new OptionData(OptionType.USER, "member", "The member you want the avatar from").setRequired(false));
     }
 
     @Override
     protected void execute(SlashCommandEvent event) {
-        if(options == null) {
-            event.reply("Could not execute say command. Text option was null!").setEphemeral(true).queue();
-            return;
-        }
+        if(event.getOption("member") == null) {
+            Member member = event.getMember();
+            MessageEmbed embed = new EmbedBuilder()
+                    .setColor(new Color(10189801))
+                    .setTimestamp(event.getTimeCreated())
+                    .setImage(member.getUser().getAvatarUrl() + "?size=512")
+                    .setAuthor(member.getUser().getName() + "'s Avatar", member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl())
+                    .build();
+            event.replyEmbeds(embed).queue();
+        } else {
             Member member = event.getOption("member").getAsMember();
             MessageEmbed embed = new EmbedBuilder()
                     .setColor(new Color(10189801))
@@ -40,5 +46,6 @@ public class AvatarCommand extends SlashCommand {
                     .setAuthor(member.getUser().getName() + "'s Avatar", member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl())
                     .build();
             event.replyEmbeds(embed).queue();
+        }
     }
 }
