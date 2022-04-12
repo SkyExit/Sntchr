@@ -1,7 +1,5 @@
 package commands.information;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.command.SlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
@@ -12,6 +10,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 
@@ -27,11 +26,10 @@ public class UserInfoCommand extends SlashCommand {
 
     @Override
     protected void execute(SlashCommandEvent event) {
-        Member member = event.getOption("member").getAsMember();
-        if(options.isEmpty()) {
+        if(event.getOption("member") == null) {
             event.replyEmbeds(createEmbed(event.getMember())).queue();
         } else {
-            event.replyEmbeds(createEmbed((Member) event.getOption("member"))).queue();
+            event.replyEmbeds(createEmbed(event.getOption("member").getAsMember())).queue();
         }
     }
 
@@ -41,11 +39,12 @@ public class UserInfoCommand extends SlashCommand {
         BUGHUNTER_LEVEL_1("<:name:748954989782630411>"),
         BUGHUNTER_LEVEL_2("<:name:748954989602537564>"),
         HYPESQUAD_EVENTS("<:name:748954989564657754>"),
-        HOUSE_BRAVERY("<:name:748954989623509062>"),
-        HOUSE_BRILLIANCE("<:name:748954989786955907>"),
-        HOUSE_BALANCE("<:name:748954989296091187>"),
+        HYPESQUAD_BRAVERY("<:name:748954989623509062>"),
+        HYPESQUAD_BRILLIANCE("<:name:748954989786955907>"),
+        HYPESQUAD_BALANCE("<:name:748954989296091187>"),
         EARLY_SUPPORTER("<:name:748954989631766558>"),
         TEAM_USER("Team User"),
+        HOUSE_EVENTS("House Events"),
         SYSTEM("<:name:749631258681671790>"),
         VERIFIED_BOT("<:name:749631258476413078>"),
         VERIFIED_DEVELOPER("<:name:748954989614989332>");
@@ -59,8 +58,6 @@ public class UserInfoCommand extends SlashCommand {
         }
     }
 
-
-
     public MessageEmbed createEmbed(Member member) {
 
         EnumSet<User.UserFlag> userFlags = member.getUser().getFlags();
@@ -72,7 +69,7 @@ public class UserInfoCommand extends SlashCommand {
                 .addField("**User information about " + member.getUser().getAsTag() + "**",
                         "**❯ Username: **" + member.getUser().getAsTag()  +" \n" +
                                 "**❯ ID: **" + member.getUser().getId()  +" \n" +
-                                "**❯ Flags: **" + (!userFlags.isEmpty() ? flagBuilder(member) : "None")  +" \n" +
+                                "**❯ Flags: **" + (!userFlags.isEmpty() ? flagB(member) : "None")  +" \n" +
                                 "**❯ Avatar: ** [Link to Avatar](" + member.getUser().getAvatarUrl()  +") \n" +
                                 "**❯ Time Created: **" + member.getTimeCreated().toLocalDate()
                         , true)
@@ -81,59 +78,15 @@ public class UserInfoCommand extends SlashCommand {
         return embed;
     }
 
-    public String flagBuilder(Member member) {
-        String flagsFinal = "";
-        String userFlags = member.getUser().getFlags().toString();
+    public String flagB(Member member) {
+        StringBuilder flagsFinal = new StringBuilder();
+        EnumSet<User.UserFlag> userFlag = member.getUser().getFlags();
+        ArrayList<User.UserFlag> all = new ArrayList<User.UserFlag>(userFlag);
 
-        if(userFlags.contains("DISCORD_EMPLOYEE")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
+        for (User.UserFlag flag : all) {
+            flagsFinal.append(", ");
+            flagsFinal.append(discordFlags.valueOf(flag.toString()).getFlagName());
         }
-        if(userFlags.contains("DISCORD_PARTNER")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("BUGHUNTER_LEVEL_1")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("BUGHUNTER_LEVEL_2")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("HYPESQUAD_EVENTS")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("HOUSE_BRAVERY")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("HOUSE_BRILLIANCE")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("HYPESQUAD_BALANCE")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("EARLY_SUPPORTER")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("TEAM_USER")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("SYSTEM")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("VERIFIED_BOT")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("VERIFIED_DEVELOPER")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("CERTIFIED_MODERATOR")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("PARTNER")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-        if(userFlags.contains("STAFF")) {
-            flagsFinal = flagsFinal + ", <:name:748954989296091187>";
-        }
-
-            return flagsFinal.substring(2);
+        return flagsFinal.substring(2);
     }
 }

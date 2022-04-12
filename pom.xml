@@ -6,7 +6,7 @@
 
     <groupId>de.laurinhummel</groupId>
     <artifactId>sntchr</artifactId>
-    <version>2.2.26</version>
+    <version>2.2.27</version>
 
     <build>
         <plugins>

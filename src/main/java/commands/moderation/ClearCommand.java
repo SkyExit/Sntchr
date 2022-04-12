@@ -2,50 +2,48 @@ package commands.moderation;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.command.SlashCommand;
 import com.sedmelluq.discord.lavaplayer.remote.message.UnknownMessage;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class ClearCommand extends Command {
+public class ClearCommand extends SlashCommand {
     public ClearCommand() {
         this.name = "clear";
         this.help = "clears some messages";
         this.category = new Category("Moderation");
+
+        this.options = Collections.singletonList(new OptionData(OptionType.INTEGER, "amount", "The amount of messages you want to purge!").setRequired(true));
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void execute(SlashCommandEvent event) {
         if (event.getMember().hasPermission(event.getTextChannel(), Permission.MESSAGE_MANAGE)) {
-            String args = event.getArgs();
-            if (!args.isEmpty()) {
-                if (Integer.parseInt(args) <= 100 && Integer.parseInt(args) > 1) {
-                    int values = Integer.parseInt(args);
+            int amount = (int) event.getOption("amount").getAsDouble();
+                if (amount <= 100 && amount > 1) {
+                    List<Message> messages = event.getChannel().getHistory().retrievePast(amount).complete();
                     try {
-                        event.getMessage().delete().queue();
-                    } catch (ErrorResponseException e) {
-                        //
-                    }
-                    List<Message> messages = event.getChannel().getHistory().retrievePast(values).complete();
-                    event.getTextChannel().deleteMessages(messages).queue();
-                    try {
-                        event.getChannel().sendMessage("✅ " + args.toString() + " messages deleted!").queue(m ->
+                        event.getTextChannel().deleteMessages(messages).queue();
+                        event.getChannel().sendMessage("✅ " + amount + " messages deleted!").queue(m ->
                                 m.delete().queueAfter(5, TimeUnit.SECONDS));
-                    } catch (ErrorResponseException e) {
-                        //
+                    } catch (IllegalArgumentException e) {
+                        event.reply("I cant delete messages older than 2 weeks... sry").setEphemeral(true).queue();
                     }
-
                 } else {
-                    event.reply("There's an maximum of 100 Messages to clear at once");
+                    event.reply("You can't clear more than 100 messages at a time!").setEphemeral(true).queue();
                 }
-            } else {
-                event.reply("Please provide an amount of messages to clear!");
-            }
+        } else {
+            event.reply("You don't have permissions to do that!").setEphemeral(true).queue();
         }
     }
 }
