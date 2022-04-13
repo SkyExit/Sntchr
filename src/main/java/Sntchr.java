@@ -10,6 +10,8 @@ import commands.information.ServerInfoCommand;
 import commands.information.UserInfoCommand;
 import commands.moderation.ClearCommand;
 import commands.music.*;
+import economy.BalanceCommand;
+import economy.SlotCommand;
 import events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -62,6 +64,10 @@ public class Sntchr {
 
         //Moderation
         builder.addSlashCommand(new ClearCommand());
+
+        //Economy
+        builder.addSlashCommand(new SlotCommand());
+        builder.addSlashCommand(new BalanceCommand());
 
         CommandClient client = builder.build();
 
