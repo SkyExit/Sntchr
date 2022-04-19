@@ -1,4 +1,4 @@
-package economy;
+package commands.economy;
 
 import com.jagrosh.jdautilities.command.SlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import net.dv8tion.jda.api.utils.Timestamp;
 import shortcuts.DataHandler;
 
 import java.awt.*;
@@ -26,10 +25,13 @@ public class BalanceCommand extends SlashCommand {
 
     @Override
     protected void execute(SlashCommandEvent event) {
+        event.deferReply().queue();
         if(event.getOption("member") == null) {
-            event.replyEmbeds(balanceEmbedBuilder(event.getMember(), event.getTimeCreated())).queue();
+            event.getHook().sendMessageEmbeds(balanceEmbedBuilder(event.getMember(), event.getTimeCreated())).queue();
+            //event.replyEmbeds(balanceEmbedBuilder(event.getMember(), event.getTimeCreated())).queue();
         } else {
-            event.replyEmbeds(balanceEmbedBuilder(event.getOption("member").getAsMember(), event.getTimeCreated())).queue();
+            //event.replyEmbeds(balanceEmbedBuilder(event.getOption("member").getAsMember(), event.getTimeCreated())).queue();
+            event.getHook().sendMessageEmbeds(balanceEmbedBuilder(event.getOption("member").getAsMember(), event.getTimeCreated())).queue();
         }
     }
 

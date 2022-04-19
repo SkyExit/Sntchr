@@ -1,17 +1,14 @@
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import commands.apis.ClashRoyaleStatsCommand;
-import commands.apis.FortniteMapCommand;
-import commands.apis.FortniteNewsCommand;
-import commands.apis.FortniteStatsCommand;
+import commands.apis.*;
 import commands.information.AvatarCommand;
 import commands.information.HelpCommand;
 import commands.information.ServerInfoCommand;
 import commands.information.UserInfoCommand;
 import commands.moderation.ClearCommand;
 import commands.music.*;
-import economy.BalanceCommand;
-import economy.SlotCommand;
+import commands.economy.BalanceCommand;
+import commands.economy.SlotCommand;
 import events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -56,11 +53,12 @@ public class Sntchr {
         builder.addCommand(new RepeatCommand());
         builder.addCommand(new LeaveCommad());
 
-        //Gaming
+        //APIs
         builder.addCommand(new FortniteStatsCommand());
         builder.addCommand(new FortniteNewsCommand());
         builder.addCommand(new FortniteMapCommand());
         builder.addCommand(new ClashRoyaleStatsCommand());
+        builder.addSlashCommand(new ValorantWeaponStats());
 
         //Moderation
         builder.addSlashCommand(new ClearCommand());
