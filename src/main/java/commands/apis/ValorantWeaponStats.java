@@ -130,13 +130,24 @@ public class ValorantWeaponStats extends SlashCommand {
     }
 
     private MessageEmbed embedBuilder(Categories categories, JSONObject weaponData) {
+
+        JSONObject weaponStats = weaponData.getJSONObject("weaponStats");
+        JSONObject shopData = weaponData.getJSONObject("shopData");
+        JSONObject skins = weaponData.getJSONObject("skins");
+
         EmbedBuilder embed = new EmbedBuilder();
             embed.setTitle("Weapon Data: " + weaponData.getString("displayName"));
             embed.setThumbnail(weaponData.getString("displayIcon"));
 
             switch (categories) {
                 case HEAVY: {
-
+                    embed.addField("weaponStats",
+                            "fire rate: " + weaponStats.getInt("fireRate") + "\n" +
+                                    "magazine size: " + weaponStats.getInt("fireRate") + "\n" +
+                                    "run speed multiplier: " + weaponStats.getInt("fireRate") + "\n" +
+                                    "reload speed: " + weaponStats.getInt("fireRate") + "\n" +
+                                    "wall penetration: " + weaponStats.getInt("fireRate") + "\n"
+                            , true);
                 }
             }
 
