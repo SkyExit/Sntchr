@@ -2,10 +2,8 @@ package commands.apis;
 
 import com.jagrosh.jdautilities.command.SlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import okhttp3.Call;
@@ -13,11 +11,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -50,7 +48,7 @@ public class ValorantWeaponStats extends SlashCommand {
         );
     }
 
-    private enum Categories {
+    private enum WeaponType {
         HEAVY,
         RIFLE,
         SHOTGUN,
@@ -60,24 +58,24 @@ public class ValorantWeaponStats extends SlashCommand {
         MELEE
     }
 
-    private static Categories categories;
+    private static WeaponType categories;
 
     private void setCategory(int weapon) {
         categories = switch (weapon) {
-            case 0, 1 -> Categories.HEAVY;
-            case 2, 3, 4 -> Categories.RIFLE;
-            case 5, 6 -> Categories.SHOTGUN;
-            case 7, 8, 9, 10, 11 -> Categories.SIDEARM;
-            case 12, 13, 14 -> Categories.SNIPER;
-            case 15, 16 -> Categories.SMG;
-            case 17 -> Categories.MELEE;
+            case 0, 1 -> WeaponType.HEAVY;
+            case 2, 3, 4 -> WeaponType.RIFLE;
+            case 5, 6 -> WeaponType.SHOTGUN;
+            case 7, 8, 9, 10, 11 -> WeaponType.SIDEARM;
+            case 12, 13, 14 -> WeaponType.SNIPER;
+            case 15, 16 -> WeaponType.SMG;
+            case 17 -> WeaponType.MELEE;
             default -> throw new IllegalStateException("Unexpected value: " + weapon);
         };
     }
 
     @Override
     protected void execute(SlashCommandEvent event) {
-        event.deferReply().queue();
+        event.deferReply(true).queue();
 
         //API REQUESTER
         Response response = null;
@@ -125,32 +123,66 @@ public class ValorantWeaponStats extends SlashCommand {
 
         //DATA WORKER
         setCategory(Integer.parseInt(event.getOption("weapon").getAsString()));
+        assert jsonObject != null;
         JSONObject weaponData = jsonObject.getJSONArray("data").getJSONObject(Integer.parseInt(event.getOption("weapon").getAsString()));
-        event.getHook().sendMessage(weaponData.getString("displayName")).queue();
+        //event.getHook().sendMessage(weaponData.getString("displayName")).queue();
+        event.getHook().sendMessageEmbeds(embedBuilder(categories, weaponData)).setEphemeral(true).queue();
     }
 
-    private MessageEmbed embedBuilder(Categories categories, JSONObject weaponData) {
+    private MessageEmbed embedBuilder(WeaponType categories, JSONObject weaponData) {
 
-        JSONObject weaponStats = weaponData.getJSONObject("weaponStats");
-        JSONObject shopData = weaponData.getJSONObject("shopData");
-        JSONObject skins = weaponData.getJSONObject("skins");
+        JSONObject weaponStats = null;
+        JSONObject shopData;
+        JSONArray skins;
+        JSONArray damageRanges;
 
         EmbedBuilder embed = new EmbedBuilder();
             embed.setTitle("Weapon Data: " + weaponData.getString("displayName"));
             embed.setThumbnail(weaponData.getString("displayIcon"));
 
-            switch (categories) {
-                case HEAVY: {
-                    embed.addField("weaponStats",
-                            "fire rate: " + weaponStats.getInt("fireRate") + "\n" +
-                                    "magazine size: " + weaponStats.getInt("fireRate") + "\n" +
-                                    "run speed multiplier: " + weaponStats.getInt("fireRate") + "\n" +
-                                    "reload speed: " + weaponStats.getInt("fireRate") + "\n" +
-                                    "wall penetration: " + weaponStats.getInt("fireRate") + "\n"
-                            , true);
-                }
-            }
-
+        try {
+            weaponStats = weaponData.getJSONObject("weaponStats");
+            shopData = weaponData.getJSONObject("shopData");
+            skins = weaponData.getJSONArray("skins");
+            damageRanges = weaponStats.getJSONArray("damageRanges");
+        } catch (JSONException e) {
             return embed.build();
+        }
+
+            if(categories != WeaponType.MELEE) {
+                String[] wallPenetration = weaponStats.getString("wallPenetration").split("::");
+                embed.addField("weaponStats",
+                        "fire rate: " + weaponStats.getInt("fireRate") + "\n" +
+                                "magazine size: " + weaponStats.getInt("magazineSize") + "\n" +
+                                "run speed multiplier: " + weaponStats.getDouble("runSpeedMultiplier") + "\n" +
+                                "reload speed: " + weaponStats.getDouble("reloadTimeSeconds") + "s \n" +
+                                "wall penetration: " + wallPenetration[1] + "\n"
+                        , true);
+                switch (categories) { case HEAVY, RIFLE, SMG -> embed.addField(createADS(weaponStats.getJSONObject("adsStats"))); }
+                embed.addBlankField(false);
+                createDamageRanges(embed, damageRanges.length(), damageRanges);
+            }
+            return embed.build();
+    }
+
+    private MessageEmbed.Field createADS(JSONObject adsStats) {
+        return new MessageEmbed.Field("ADS Stats",
+                "zoom multiplier: " + adsStats.getDouble("zoomMultiplier") + "\n" +
+                        "fire rate: " + adsStats.getDouble("fireRate") + "\n" +
+                        "run speed multiplier: " + adsStats.getDouble("runSpeedMultiplier") + "\n"
+                , true);
+    }
+
+    private void createDamageRanges(EmbedBuilder embed, int range, JSONArray damageRanges) {
+        for (int i = 0; i < range; i++) {
+            JSONObject dmgRange = damageRanges.getJSONObject(i);
+            embed.addField("Range " + i,
+                    "range start: " + dmgRange.getInt("rangeStartMeters") + "m \n" +
+                            "range end: " + dmgRange.getInt("rangeEndMeters") + "m \n" +
+                            "head damage: " + dmgRange.getDouble("headDamage") + " \n" +
+                            "body damage: " + dmgRange.getDouble("bodyDamage") + " \n" +
+                            "leg damage: " + dmgRange.getDouble("legDamage")
+                    , true);
+        }
     }
 }
