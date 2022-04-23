@@ -17,66 +17,21 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ValorantWeaponStats extends SlashCommand {
     public ValorantWeaponStats() {
         this.name = "valo";
-        this.help = "Returns the mentioned users Avatar";
+        this.help = "Gives useful information about VALORANT";
         this.category = new Category("Information");
 
-        this.options = Collections.singletonList(new OptionData(OptionType.STRING, "weapon", "The member you want the avatar from")
-                .addChoice("Odin", "0")
-                .addChoice("Ares", "1")
-                .addChoice("Vandal", "2")
-                .addChoice("Bulldog", "3")
-                .addChoice("Phantom", "4")
-                .addChoice("Judge", "5")
-                .addChoice("Bucky", "6")
-                .addChoice("Frenzy", "7")
-                .addChoice("Classic", "8")
-                .addChoice("Ghost", "9")
-                .addChoice("Sheriff", "10")
-                .addChoice("Shorty", "11")
-                .addChoice("Operator", "12")
-                .addChoice("Guardian", "13")
-                .addChoice("Marshal", "14")
-                .addChoice("Spectre", "15")
-                .addChoice("Stinger", "16")
-                .addChoice("Melee", "17")
-                .setRequired(true)
-        );
+        this.children = new SlashCommand[]{new Weapon(), new Skins()};
     }
 
-    private enum WeaponType {
-        HEAVY,
-        RIFLE,
-        SHOTGUN,
-        SIDEARM,
-        SNIPER,
-        SMG,
-        MELEE
-    }
 
-    private static WeaponType categories;
 
-    private void setCategory(int weapon) {
-        categories = switch (weapon) {
-            case 0, 1 -> WeaponType.HEAVY;
-            case 2, 3, 4 -> WeaponType.RIFLE;
-            case 5, 6 -> WeaponType.SHOTGUN;
-            case 7, 8, 9, 10, 11 -> WeaponType.SIDEARM;
-            case 12, 13, 14 -> WeaponType.SNIPER;
-            case 15, 16 -> WeaponType.SMG;
-            case 17 -> WeaponType.MELEE;
-            default -> throw new IllegalStateException("Unexpected value: " + weapon);
-        };
-    }
-
-    @Override
-    protected void execute(SlashCommandEvent event) {
-        event.deferReply(true).queue();
-
+    private static JSONObject getJSONObject() {
         //API REQUESTER
         Response response = null;
         int responsecode = 0;
@@ -120,36 +75,93 @@ public class ValorantWeaponStats extends SlashCommand {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        //DATA WORKER
-        setCategory(Integer.parseInt(event.getOption("weapon").getAsString()));
-        assert jsonObject != null;
-        JSONObject weaponData = jsonObject.getJSONArray("data").getJSONObject(Integer.parseInt(event.getOption("weapon").getAsString()));
-        //event.getHook().sendMessage(weaponData.getString("displayName")).queue();
-        event.getHook().sendMessageEmbeds(embedBuilder(categories, weaponData)).setEphemeral(true).queue();
+        return jsonObject;
     }
 
-    private MessageEmbed embedBuilder(WeaponType categories, JSONObject weaponData) {
+    private enum WeaponType {
+        HEAVY,
+        RIFLE,
+        SHOTGUN,
+        SIDEARM,
+        SNIPER,
+        SMG,
+        MELEE
+    }
 
-        JSONObject weaponStats = null;
-        JSONObject shopData;
-        JSONArray skins;
-        JSONArray damageRanges;
+    private static WeaponType categories;
 
-        EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("Weapon Data: " + weaponData.getString("displayName"));
-            embed.setThumbnail(weaponData.getString("displayIcon"));
+    private static void setCategory(int weapon) {
+        categories = switch (weapon) {
+            case 0, 1 -> WeaponType.HEAVY;
+            case 2, 3, 4 -> WeaponType.RIFLE;
+            case 5, 6 -> WeaponType.SHOTGUN;
+            case 7, 8, 9, 10, 11 -> WeaponType.SIDEARM;
+            case 12, 13, 14 -> WeaponType.SNIPER;
+            case 15, 16 -> WeaponType.SMG;
+            case 17 -> WeaponType.MELEE;
+            default -> throw new IllegalStateException("Unexpected value: " + weapon);
+        };
+    }
 
-        try {
-            weaponStats = weaponData.getJSONObject("weaponStats");
-            shopData = weaponData.getJSONObject("shopData");
-            skins = weaponData.getJSONArray("skins");
-            damageRanges = weaponStats.getJSONArray("damageRanges");
-        } catch (JSONException e) {
-            return embed.build();
+    @Override
+    protected void execute(SlashCommandEvent event) {
+
+    }
+
+    private static class Weapon extends SlashCommand {
+        public Weapon() {
+            this.name = "weapon";
+            this.help = "weapon information";
+
+            this.options = Collections.singletonList(new OptionData(OptionType.STRING, "weapon", "The member you want the avatar from")
+                    .addChoice("Odin", "0")
+                    .addChoice("Ares", "1")
+                    .addChoice("Vandal", "2")
+                    .addChoice("Bulldog", "3")
+                    .addChoice("Phantom", "4")
+                    .addChoice("Judge", "5")
+                    .addChoice("Bucky", "6")
+                    .addChoice("Frenzy", "7")
+                    .addChoice("Classic", "8")
+                    .addChoice("Ghost", "9")
+                    .addChoice("Sheriff", "10")
+                    .addChoice("Shorty", "11")
+                    .addChoice("Operator", "12")
+                    .addChoice("Guardian", "13")
+                    .addChoice("Marshal", "14")
+                    .addChoice("Spectre", "15")
+                    .addChoice("Stinger", "16")
+                    .addChoice("Melee", "17")
+                    .addChoice("Knife", "17")
+                    .setRequired(true)
+            );
         }
 
+        @Override
+        protected void execute(SlashCommandEvent event) {
+            event.deferReply(true).queue();
+
+            setCategory(Integer.parseInt(event.getOption("weapon").getAsString()));
+            assert getJSONObject() != null;
+            JSONObject weaponData = getJSONObject().getJSONArray("data").getJSONObject(Integer.parseInt(event.getOption("weapon").getAsString()));
+
+            JSONObject weaponStats = null;
+            JSONObject shopData;
+            JSONArray skins;
+            JSONArray damageRanges;
+
+            EmbedBuilder embed = new EmbedBuilder();
+
+            embed.setThumbnail(weaponData.getString("displayIcon"));
+
             if(categories != WeaponType.MELEE) {
+                weaponStats = weaponData.getJSONObject("weaponStats");
+                shopData = weaponData.getJSONObject("shopData");
+                skins = weaponData.getJSONArray("skins");
+                damageRanges = weaponStats.getJSONArray("damageRanges");
+
+                embed.setTitle("Weapon Data: " + weaponData.getString("displayName") + " (" + shopData.getInt("cost") + ")");
+
                 String[] wallPenetration = weaponStats.getString("wallPenetration").split("::");
                 embed.addField("weaponStats",
                         "fire rate: " + weaponStats.getInt("fireRate") + "\n" +
@@ -161,11 +173,87 @@ public class ValorantWeaponStats extends SlashCommand {
                 switch (categories) { case HEAVY, RIFLE, SMG -> embed.addField(createADS(weaponStats.getJSONObject("adsStats"))); }
                 embed.addBlankField(false);
                 createDamageRanges(embed, damageRanges.length(), damageRanges);
+            } else {
+                embed.setTitle("Weapon Data: " + weaponData.getString("displayName"));
             }
-            return embed.build();
+
+            event.getHook().sendMessageEmbeds(embed.build()).setEphemeral(true).queue();
+        }
     }
 
-    private MessageEmbed.Field createADS(JSONObject adsStats) {
+    private static class Skins extends SlashCommand {
+        public Skins() {
+            this.name = "skins";
+            this.help = "weapon skins";
+
+            this.options = Collections.singletonList(new OptionData(OptionType.STRING, "weapon", "The member you want the avatar from")
+                    .addChoice("Odin", "0")
+                    .addChoice("Ares", "1")
+                    .addChoice("Vandal", "2")
+                    .addChoice("Bulldog", "3")
+                    .addChoice("Phantom", "4")
+                    .addChoice("Judge", "5")
+                    .addChoice("Bucky", "6")
+                    .addChoice("Frenzy", "7")
+                    .addChoice("Classic", "8")
+                    .addChoice("Ghost", "9")
+                    .addChoice("Sheriff", "10")
+                    .addChoice("Shorty", "11")
+                    .addChoice("Operator", "12")
+                    .addChoice("Guardian", "13")
+                    .addChoice("Marshal", "14")
+                    .addChoice("Spectre", "15")
+                    .addChoice("Stinger", "16")
+                    .addChoice("Melee", "17")
+                    .addChoice("Knife", "17")
+                    .setRequired(true)
+            );
+        }
+
+        @Override
+        protected void execute(SlashCommandEvent event) {
+            event.deferReply(true).queue();
+
+            JSONObject weaponData = getJSONObject().getJSONArray("data").getJSONObject(Integer.parseInt(event.getOption("weapon").getAsString()));
+            JSONArray skins = weaponData.getJSONArray("skins");
+
+            EmbedBuilder embed = new EmbedBuilder();
+                embed.setThumbnail(weaponData.getString("displayIcon"));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String[] skinString;
+            for (int i = 0; i < skins.length(); i++) {
+                JSONObject skinObject = skins.getJSONObject(i);
+                if(Objects.equals(skinObject.get("displayIcon").toString(), "null")) {
+                    stringBuilder.append(skinObject.getString("displayName")).append("\n");
+                } else {
+                    stringBuilder.append("[").append(skinObject.getString("displayName")).append("](").append(skinObject.get("displayIcon")).append(") \n");
+                }
+            }
+
+            event.getHook().sendMessageEmbeds(embed.build()).setEphemeral(true).queue();
+        }
+    }
+
+    private static void createSkins(EmbedBuilder embed, JSONArray skins) {
+        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder2 = new StringBuilder();
+        for (int i = 0; i < skins.length(); i++) {
+            JSONObject skinObject = skins.getJSONObject(i);
+            if(stringBuilder.length() < 400) {
+                stringBuilder.append(skinObject.getString("displayName")).append("\n");
+            } else {
+                stringBuilder2.append(skinObject.getString("displayName")).append("\n");
+            }
+        }
+
+        embed.addField("Skins", stringBuilder.toString(), true);
+        if(!stringBuilder2.isEmpty()) {
+            embed.addField("Skins", stringBuilder2.toString(), true);
+        }
+    }
+
+    private static MessageEmbed.Field createADS(JSONObject adsStats) {
         return new MessageEmbed.Field("ADS Stats",
                 "zoom multiplier: " + adsStats.getDouble("zoomMultiplier") + "\n" +
                         "fire rate: " + adsStats.getDouble("fireRate") + "\n" +
@@ -173,7 +261,7 @@ public class ValorantWeaponStats extends SlashCommand {
                 , true);
     }
 
-    private void createDamageRanges(EmbedBuilder embed, int range, JSONArray damageRanges) {
+    private static void createDamageRanges(EmbedBuilder embed, int range, JSONArray damageRanges) {
         for (int i = 0; i < range; i++) {
             JSONObject dmgRange = damageRanges.getJSONObject(i);
             embed.addField("Range " + i,
