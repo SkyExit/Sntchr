@@ -6,7 +6,7 @@ import de.laurinhummel.sntchr.lavaplayer.GuildMusicManager;
 import de.laurinhummel.sntchr.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class VolumeCommand extends Command {
     public VolumeCommand() {
@@ -22,7 +22,7 @@ public class VolumeCommand extends Command {
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
         assert selfVoiceState != null;
-        if(!selfVoiceState.inVoiceChannel()) {
+        if(!selfVoiceState.inAudioChannel()) {
             event.reply("I need to be in a voice channel!");
             return;
         }
@@ -30,7 +30,7 @@ public class VolumeCommand extends Command {
         final Member member = event.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
         assert memberVoiceState != null;
-        if(!memberVoiceState.inVoiceChannel()) {
+        if(!memberVoiceState.inAudioChannel()) {
             event.reply("You need to be in a voice channel!");
             return;
         }

@@ -11,7 +11,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.awt.*;
 import java.time.OffsetDateTime;
@@ -67,7 +67,7 @@ public class PlayerManager {
                         .setThumbnail("https://img.youtube.com/vi/" + playingTrack.getIdentifier() + "/default.jpg")
                         .setAuthor("Added to Queue", null, member.getUser().getAvatarUrl())
                         .addField("Interpret", trackInfo.author, true);
-                channel.sendMessage(builder.build()).queue();
+                channel.sendMessageEmbeds(builder.build()).queue();
             }
 
             @Override
@@ -92,7 +92,7 @@ public class PlayerManager {
                         .setThumbnail("https://img.youtube.com/vi/" + playingTrack.getIdentifier() + "/default.jpg")
                         .setAuthor("Added to Queue", null, member.getUser().getAvatarUrl())
                         .addField("Interpret", trackInfo.author, true);
-                channel.sendMessage(builder.build()).queue();
+                channel.sendMessageEmbeds(builder.build()).queue();
             }
 
             /*

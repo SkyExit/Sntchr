@@ -6,8 +6,9 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import de.laurinhummel.sntchr.lavaplayer.GuildMusicManager;
 import de.laurinhummel.sntchr.lavaplayer.PlayerManager;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.requests.restaction.MessageAction;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.requests.restaction.MessageCreateAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,27 +35,27 @@ public class QueueCommand extends Command {
 
         final int trackCount = Math.min(queue.size(), 20);
         final List<AudioTrack> trackList = new ArrayList<>(queue);
-        final MessageAction messageAction = event.getTextChannel().sendMessage("**Current Queue:** \n");
+        final MessageCreateAction messageAction = event.getTextChannel().sendMessage("**Current Queue:** \n");
 
         for (int i = 0; i < trackCount; i++) {
             final AudioTrack audioTrack = trackList.get(i);
             final AudioTrackInfo info = audioTrack.getInfo();
 
-            messageAction.append('#')
-                    .append(String.valueOf(i + 1))
-                    .append(" `")
-                    .append(info.title)
-                    .append(" by ")
-                    .append(info.author)
-                    .append("` [`")
-                    .append(formatTime(audioTrack.getDuration()))
-                    .append("`]\n");
+            messageAction.addContent("#")
+                    .addContent(String.valueOf(i + 1))
+                    .addContent(" `")
+                    .addContent(info.title)
+                    .addContent(" by ")
+                    .addContent(info.author)
+                    .addContent("` [`")
+                    .addContent(formatTime(audioTrack.getDuration()))
+                    .addContent("`]\n");
         }
 
         if(trackList.size() > trackCount) {
-            messageAction.append("And `")
-                    .append(String.valueOf(trackList.size() - trackCount))
-                    .append("` more...");
+            messageAction.addContent("And `")
+                    .addContent(String.valueOf(trackList.size() - trackCount))
+                    .addContent("` more...");
         }
 
         messageAction.queue();

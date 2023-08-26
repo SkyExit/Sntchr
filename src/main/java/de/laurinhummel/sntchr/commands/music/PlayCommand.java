@@ -7,8 +7,8 @@ import de.laurinhummel.sntchr.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.net.URI;
@@ -35,17 +35,17 @@ public class PlayCommand extends Command {
         final Member member = event.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
         assert memberVoiceState != null;
-        if(!memberVoiceState.inVoiceChannel()) {
+        if(!memberVoiceState.inAudioChannel()) {
             event.reply("You need to be in a voice channel!");
             return;
         }
 
         final AudioManager audioManager = event.getGuild().getAudioManager();
-        final VoiceChannel memberVoiceChannel = memberVoiceState.getChannel();
+        final AudioChannelUnion memberVoiceChannel = memberVoiceState.getChannel();
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
 
         assert selfVoiceState != null;
-        if(!selfVoiceState.inVoiceChannel()) {
+        if(!selfVoiceState.inAudioChannel()) {
             if(self.hasPermission(Permission.VOICE_CONNECT)) {
                 musicManager.audioPlayer.setVolume(100);
                 audioManager.openAudioConnection(memberVoiceChannel);

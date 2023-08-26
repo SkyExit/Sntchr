@@ -14,6 +14,7 @@ import de.laurinhummel.sntchr.commands.economy.SlotCommand;
 import de.laurinhummel.sntchr.events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -26,10 +27,13 @@ public final class Sntchr {
     public static void main(String args[]) throws Exception {
         JDA jda = JDABuilder.createDefault(BotToken.getBotToken())
                 .enableCache(CacheFlag.VOICE_STATE)
+                .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .build();
 
         Logger.getLogger("net.dv8tion").setLevel(Level.INFO);
         Logger.getLogger("com.jagrosh").setLevel(Level.INFO);
+        Logger.getLogger("com.sedmelluq").setLevel(Level.INFO);
+        Logger.getLogger("org.apache").setLevel(Level.INFO);
         BasicConfigurator.configure();
 
         CommandClientBuilder builder = new CommandClientBuilder();

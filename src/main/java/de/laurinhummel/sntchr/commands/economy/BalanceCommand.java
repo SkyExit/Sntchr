@@ -1,13 +1,14 @@
 package de.laurinhummel.sntchr.commands.economy;
 
 import com.jagrosh.jdautilities.command.SlashCommand;
+import com.jagrosh.jdautilities.command.SlashCommandEvent;
 import de.laurinhummel.sntchr.commands.apis.ValorantWeaponStats;
+import de.laurinhummel.sntchr.shortcuts.CommonStrings;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import de.laurinhummel.sntchr.shortcuts.DataHandler;
@@ -28,9 +29,10 @@ public class BalanceCommand extends SlashCommand {
     }
 
     @Override
-    protected void execute(SlashCommandEvent event) {
+    protected void execute(SlashCommandEvent slashCommandEvent) {
 
     }
+
 
     private static class Get extends SlashCommand {
         public Get() {
@@ -43,11 +45,9 @@ public class BalanceCommand extends SlashCommand {
         @Override
         protected void execute(SlashCommandEvent event) {
             event.deferReply(false).queue();
-            if(event.getOption("member") == null) {
+            if(event.getOption("user") == null) {
                 event.getHook().sendMessageEmbeds(balanceEmbedBuilder(event.getMember(), event.getTimeCreated())).queue();
-                //event.replyEmbeds(balanceEmbedBuilder(event.getMember(), event.getTimeCreated())).queue();
             } else {
-                //event.replyEmbeds(balanceEmbedBuilder(event.getOption("member").getAsMember(), event.getTimeCreated())).queue();
                 event.getHook().sendMessageEmbeds(balanceEmbedBuilder(event.getOption("user").getAsMember(), event.getTimeCreated())).queue();
             }
         }
@@ -86,7 +86,7 @@ public class BalanceCommand extends SlashCommand {
                 DataHandler.setUserBalance(member, amount);
                 event.getHook().sendMessage("Your balance was updated! New value: " + amount).setEphemeral(true).queue();
             } else {
-                event.getHook().sendMessage("Sorry, but you don't have permissions to do that :/").setEphemeral(true).queue();
+                event.getHook().sendMessage(CommonStrings.NO_PERMISSIONS).setEphemeral(true).queue();
             }
         }
     }

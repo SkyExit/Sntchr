@@ -4,7 +4,7 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 public class LeaveCommad extends Command {
@@ -21,7 +21,7 @@ public class LeaveCommad extends Command {
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
         assert selfVoiceState != null;
-        if(!selfVoiceState.inVoiceChannel()) {
+        if(!selfVoiceState.inAudioChannel()) {
             event.reply("I need to be in a voice channel!");
             return;
         }
@@ -29,7 +29,7 @@ public class LeaveCommad extends Command {
         final Member member = event.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
         assert memberVoiceState != null;
-        if(!memberVoiceState.inVoiceChannel()) {
+        if(!memberVoiceState.inAudioChannel()) {
             event.reply("You need to be in a voice channel!");
             return;
         }

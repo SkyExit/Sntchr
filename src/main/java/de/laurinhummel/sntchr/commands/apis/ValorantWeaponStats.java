@@ -1,9 +1,9 @@
 package de.laurinhummel.sntchr.commands.apis;
 
 import com.jagrosh.jdautilities.command.SlashCommand;
+import com.jagrosh.jdautilities.command.SlashCommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import okhttp3.Call;
@@ -110,7 +110,7 @@ public class ValorantWeaponStats extends SlashCommand {
             this.name = "weapon";
             this.help = "weapon information";
 
-            this.options = Collections.singletonList(new OptionData(OptionType.STRING, "weapon", "The member you want the avatar from")
+            this.options = Collections.singletonList(new OptionData(OptionType.STRING, "weapon", "The weapon's name")
                     .addChoice("Odin", "0")
                     .addChoice("Ares", "1")
                     .addChoice("Vandal", "2")
@@ -183,7 +183,7 @@ public class ValorantWeaponStats extends SlashCommand {
             this.name = "skins";
             this.help = "weapon skins";
 
-            this.options = Collections.singletonList(new OptionData(OptionType.STRING, "weapon", "The member you want the avatar from")
+            this.options = Collections.singletonList(new OptionData(OptionType.STRING, "weapon", "The weapon's name")
                     .addChoice("Odin", "0")
                     .addChoice("Ares", "1")
                     .addChoice("Vandal", "2")

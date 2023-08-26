@@ -1,9 +1,10 @@
 package de.laurinhummel.sntchr.commands.economy;
 
 import com.jagrosh.jdautilities.command.SlashCommand;
+import com.jagrosh.jdautilities.command.SlashCommandEvent;
 import de.laurinhummel.sntchr.Sntchr;
+import de.laurinhummel.sntchr.shortcuts.CommonStrings;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import de.laurinhummel.sntchr.shortcuts.DataHandler;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -22,7 +23,7 @@ public class SlotCommand extends SlashCommand {
     @Override
     protected void execute(SlashCommandEvent event) {
         int amount = (int) event.getOption("amount").getAsDouble();
-            if(amount < 0) { event.reply("Sorry, but the amount must be greater than 0 :/").setEphemeral(true).queue(); return; }
+            if(amount < 0) { event.reply(CommonStrings.AMOUNT_0).setEphemeral(true).queue(); return; }
 
         if(DataHandler.changeUserBalance(event.getMember(), -amount)) {
             int v1 = Sntchr.getRandomNumber(1, 7);
@@ -40,7 +41,7 @@ public class SlotCommand extends SlashCommand {
             event.replyEmbeds(embedBuilder.build()).setEphemeral(false).queue();
             if(win) { DataHandler.changeUserBalance(event.getMember(), amount * 500); }
         } else {
-            event.reply("Sorry, but you don't have enough money to do this :/").setEphemeral(true).queue();
+            event.reply(CommonStrings.NO_MONEY).setEphemeral(true).queue();
         }
     }
 

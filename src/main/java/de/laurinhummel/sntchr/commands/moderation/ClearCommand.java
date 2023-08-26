@@ -1,9 +1,10 @@
 package de.laurinhummel.sntchr.commands.moderation;
 
 import com.jagrosh.jdautilities.command.SlashCommand;
+import com.jagrosh.jdautilities.command.SlashCommandEvent;
+import de.laurinhummel.sntchr.shortcuts.CommonStrings;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
@@ -31,13 +32,13 @@ public class ClearCommand extends SlashCommand {
                         event.getChannel().sendMessage("✅ " + amount + " messages deleted!").queue(m ->
                                 m.delete().queueAfter(5, TimeUnit.SECONDS));
                     } catch (IllegalArgumentException e) {
-                        event.reply("I cant delete messages older than 2 weeks... sry").setEphemeral(true).queue();
+                        event.reply("I cant delete messages older than 2 weeks... :/").setEphemeral(true).queue();
                     }
                 } else {
                     event.reply("You can't clear more than 100 messages at a time!").setEphemeral(true).queue();
                 }
         } else {
-            event.reply("You don't have permissions to do that!").setEphemeral(true).queue();
+            event.reply(CommonStrings.NO_PERMISSIONS).setEphemeral(true).queue();
         }
     }
 }

@@ -14,11 +14,7 @@ public class DataHandler {
         try { db = DBMaker.fileDB("data.db").checksumHeaderBypass().make(); }
             catch (DBException.FileLocked e) { }
         HTreeMap myMap = db.hashMap("economy").createOrOpen();
-        try {
-            myMap.get(member.getUser().getId());
-        } catch (NullPointerException e) {
-            myMap.put(member.getUser().getId(), 0);
-        }
+        myMap.putIfAbsent(member.getUser().getId(), 0);
     }
 
     public static int getUserBalance(Member member) {
@@ -27,6 +23,7 @@ public class DataHandler {
         HTreeMap myMap = db.hashMap("economy").createOrOpen();
 
         validateUserBalance(member);
+
         return (int) myMap.get(member.getUser().getId());
     }
 
