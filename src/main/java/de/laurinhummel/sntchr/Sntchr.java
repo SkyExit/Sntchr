@@ -11,10 +11,12 @@ import de.laurinhummel.sntchr.commands.moderation.ClearCommand;
 import de.laurinhummel.sntchr.commands.music.*;
 import de.laurinhummel.sntchr.commands.economy.BalanceCommand;
 import de.laurinhummel.sntchr.commands.economy.SlotCommand;
+import de.laurinhummel.sntchr.commands.pepebotclone.CreateChannelJoinEvent;
 import de.laurinhummel.sntchr.events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -26,8 +28,11 @@ public final class Sntchr {
 
     public static void main(String args[]) throws Exception {
         JDA jda = JDABuilder.createDefault(BotToken.getBotToken())
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .enableCache(CacheFlag.VOICE_STATE)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
+                .enableIntents(GatewayIntent.GUILD_VOICE_STATES)
+                .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .build();
 
         Logger.getLogger("net.dv8tion").setLevel(Level.INFO);
@@ -49,17 +54,17 @@ public final class Sntchr {
         builder.addSlashCommand(new UserInfoCommand());
 
         //Music
-        builder.addCommand(new JoinCommand());
-        builder.addCommand(new PlayCommand());
-        builder.addCommand(new StopCommand());
-        builder.addCommand(new PauseCommand());
-        builder.addCommand(new ResumeCommand());
-        builder.addCommand(new SkipCommand());
-        builder.addCommand(new VolumeCommand());
-        builder.addCommand(new NowPlayingCommand());
-        builder.addCommand(new QueueCommand());
-        builder.addCommand(new RepeatCommand());
-        builder.addCommand(new LeaveCommad());
+        builder.addSlashCommand(new JoinCommand());
+        builder.addSlashCommand(new PlayCommand());
+        builder.addSlashCommand(new StopCommand());
+        builder.addSlashCommand(new PauseCommand());
+        builder.addSlashCommand(new ResumeCommand());
+        builder.addSlashCommand(new SkipCommand());
+        builder.addSlashCommand(new VolumeCommand());
+        builder.addSlashCommand(new NowPlayingCommand());
+        builder.addSlashCommand(new QueueCommand());
+        builder.addSlashCommand(new RepeatCommand());
+        builder.addSlashCommand(new LeaveCommand());
 
         //APIs
         builder.addCommand(new FortniteStatsCommand());
@@ -79,6 +84,7 @@ public final class Sntchr {
 
         jda.addEventListener(client);
         jda.addEventListener(new StatusManager());
+        jda.addEventListener(new CreateChannelJoinEvent());
     }
 
     public static Sntchr getSntchr() {

@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
-import java.awt.*;
 import java.util.Collections;
 
 public class HelpCommand extends SlashCommand {
@@ -47,7 +46,13 @@ public class HelpCommand extends SlashCommand {
                 }
                 break;
                 default: {
-
+                    MessageEmbed embed = getEmbedBuilder(event, "Sntchr Help Menu")
+                            .addField("Information", "`help`, `avatar`, `serverinfo`, `userinfo`", true)
+                            .addField("Music", "`join/connect`, `play`, `stop`, `pause`, `resume`, `skip`, `volume`, `nowplaying`, `queue`, `loop/repeat`", true)
+                            .addField("Moderation", "`clear`", true)
+                            .addField("Gaming", "`s&fnstats`, `s&fnnews`, `s&fnmap`, `s&crstats`", true)
+                            .build();
+                    event.replyEmbeds(embed).queue();
                 }
             }
         } catch (NullPointerException ex) {

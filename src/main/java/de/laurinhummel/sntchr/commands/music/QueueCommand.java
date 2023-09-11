@@ -2,6 +2,8 @@ package de.laurinhummel.sntchr.commands.music;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.command.SlashCommand;
+import com.jagrosh.jdautilities.command.SlashCommandEvent;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import de.laurinhummel.sntchr.lavaplayer.GuildMusicManager;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class QueueCommand extends Command {
+public class QueueCommand extends SlashCommand {
     public QueueCommand() {
         this.name = "queue";
         this.help = "Shows the queue";
@@ -23,19 +25,20 @@ public class QueueCommand extends Command {
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void execute(SlashCommandEvent event) {
         final TextChannel textChannel = event.getTextChannel();
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
         final BlockingQueue<AudioTrack> queue = musicManager.scheduler.queue;
 
         if(queue.isEmpty()) {
-            event.reply("The current queue is empty");
+            event.reply("The current queue is empty").queue();
             return;
         }
 
         final int trackCount = Math.min(queue.size(), 20);
         final List<AudioTrack> trackList = new ArrayList<>(queue);
-        final MessageCreateAction messageAction = event.getTextChannel().sendMessage("**Current Queue:** \n");
+        final MessageCreateAction messageAction = event.getTextChannel().sendMessage("**Current Queue:**");
+            messageAction.addContent("  \n");
 
         for (int i = 0; i < trackCount; i++) {
             final AudioTrack audioTrack = trackList.get(i);
@@ -58,7 +61,8 @@ public class QueueCommand extends Command {
                     .addContent("` more...");
         }
 
-        messageAction.queue();
+        //messageAction.queue();
+        event.reply(messageAction.getContent()).queue();
     }
 
     private String formatTime(long duration) {

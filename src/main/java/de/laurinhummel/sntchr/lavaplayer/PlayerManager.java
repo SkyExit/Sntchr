@@ -1,5 +1,6 @@
 package de.laurinhummel.sntchr.lavaplayer;
 
+import com.jagrosh.jdautilities.command.SlashCommandEvent;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -43,8 +44,8 @@ public class PlayerManager {
         });
     }
 
-    public void loadAndPlay(TextChannel channel, String trackURL, Member member) {
-        final GuildMusicManager musicManager = this.getMusicManager(channel.getGuild());
+    public void loadAndPlay(SlashCommandEvent event, String trackURL, Member member) {
+        final GuildMusicManager musicManager = this.getMusicManager(event.getGuild());
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackURL, new AudioLoadResultHandler() {
             @Override
@@ -67,7 +68,7 @@ public class PlayerManager {
                         .setThumbnail("https://img.youtube.com/vi/" + playingTrack.getIdentifier() + "/default.jpg")
                         .setAuthor("Added to Queue", null, member.getUser().getAvatarUrl())
                         .addField("Interpret", trackInfo.author, true);
-                channel.sendMessageEmbeds(builder.build()).queue();
+                event.replyEmbeds(builder.build()).queue();
             }
 
             @Override
@@ -92,7 +93,7 @@ public class PlayerManager {
                         .setThumbnail("https://img.youtube.com/vi/" + playingTrack.getIdentifier() + "/default.jpg")
                         .setAuthor("Added to Queue", null, member.getUser().getAvatarUrl())
                         .addField("Interpret", trackInfo.author, true);
-                channel.sendMessageEmbeds(builder.build()).queue();
+                event.replyEmbeds(builder.build()).queue();
             }
 
             /*
@@ -116,12 +117,12 @@ public class PlayerManager {
 
             @Override
             public void noMatches() {
-                channel.sendMessage("No Matches").queue();
+                event.reply("No Matches").queue();
             }
 
             @Override
             public void loadFailed(FriendlyException e) {
-                channel.sendMessage("Load failed").queue();
+                event.reply("Load failed").queue();
                 e.printStackTrace();
             }
         });

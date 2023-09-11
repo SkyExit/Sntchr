@@ -2,6 +2,8 @@ package de.laurinhummel.sntchr.commands.music;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.command.SlashCommand;
+import com.jagrosh.jdautilities.command.SlashCommandEvent;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
@@ -16,7 +18,7 @@ import java.awt.*;
 import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
 
-public class NowPlayingCommand extends Command {
+public class NowPlayingCommand extends SlashCommand {
     public NowPlayingCommand() {
         this.name = "nowplaying";
         this.help = "What's playing?";
@@ -24,9 +26,9 @@ public class NowPlayingCommand extends Command {
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void execute(SlashCommandEvent event) {
         final TextChannel channel = event.getTextChannel();
-        final Member self = event.getSelfMember();
+        final Member self = event.getMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
         assert selfVoiceState != null;
@@ -60,6 +62,6 @@ public class NowPlayingCommand extends Command {
                 .setThumbnail("https://img.youtube.com/vi/" + playingTrack.getIdentifier() + "/default.jpg")
                 .setAuthor("Currently Playing", null, event.getMember().getUser().getAvatarUrl())
                 .addField("Interpret", trackInfo.author, true);
-        event.reply(builder.build());
+        event.replyEmbeds(builder.build()).queue();
     }
 }
