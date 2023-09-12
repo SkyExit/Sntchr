@@ -9,10 +9,10 @@ import net.dv8tion.jda.api.managers.channel.middleman.AudioChannelManager;
 
 import java.util.EnumSet;
 
-public class CloseChannelCommand extends SlashCommand {
-    public CloseChannelCommand() {
-        this.name = "vc-close";
-        this.help = "Closes the channel for public";
+public class OpenChannelCommand extends SlashCommand {
+    public OpenChannelCommand() {
+        this.name = "vc-open";
+        this.help = "Opens the channel for public";
         this.category = new Category("VoiceChannel");
     }
 
@@ -24,14 +24,15 @@ public class CloseChannelCommand extends SlashCommand {
 
             AudioChannelUnion audioChannelUnion = member.getVoiceState().getChannel();
             AudioChannelManager<?, ?> manager = audioChannelUnion.getManager();
-                manager.putPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL));
+                manager.putPermissionOverride(event.getGuild().getPublicRole(), EnumSet.of(Permission.VIEW_CHANNEL), null);
                 manager.putPermissionOverride(event.getMember(), EnumSet.of(Permission.VIEW_CHANNEL), null);
 
             manager.queue();
-            event.reply("Channel '" + audioChannelUnion.getName() + "' was closed").setEphemeral(true).queue();
+            event.reply("Channel '" + audioChannelUnion.getName() + "' was opened").setEphemeral(true).queue();
         } catch (NullPointerException ex) {
-            System.out.println("Something went wrong in CloseChannelCommand");
+            System.out.println("Something went wrong in OpenChannelCommand");
             event.reply("Something went wrong").setEphemeral(true).queue();
         }
+
     }
 }

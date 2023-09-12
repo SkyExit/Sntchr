@@ -11,7 +11,7 @@ import de.laurinhummel.sntchr.commands.moderation.ClearCommand;
 import de.laurinhummel.sntchr.commands.music.*;
 import de.laurinhummel.sntchr.commands.economy.BalanceCommand;
 import de.laurinhummel.sntchr.commands.economy.SlotCommand;
-import de.laurinhummel.sntchr.commands.pepebotclone.CreateChannelJoinEvent;
+import de.laurinhummel.sntchr.commands.pepebotclone.*;
 import de.laurinhummel.sntchr.events.StatusManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -79,6 +79,12 @@ public final class Sntchr {
         //Economy
         builder.addSlashCommand(new SlotCommand());
         builder.addSlashCommand(new BalanceCommand());
+
+        //VoiceChannel
+        builder.addSlashCommand(new CloseChannelCommand());
+        builder.addSlashCommand(new OpenChannelCommand());
+        builder.addSlashCommand(new InviteChannelCommand());
+        builder.addSlashCommand(new KickChannelCommand());
 
         CommandClient client = builder.build();
 

@@ -17,7 +17,7 @@ public class CreateChannelJoinEvent extends ListenerAdapter {
             // HE JOINED A VC
             AudioChannelUnion vc = event.getChannelJoined();
             if(event.getChannelLeft() != null) { createChannelLeaveAction(event); }
-            if(vc.getName().contains("Create Channel")) { createChannelJoinAction(event); }
+            if(vc.getName().toLowerCase().contains("create channel")) { createChannelJoinAction(event); }
         } else {
             // HE LEFT A VC
             createChannelLeaveAction(event);
@@ -28,7 +28,7 @@ public class CreateChannelJoinEvent extends ListenerAdapter {
         //System.out.println("user joined 'create channel'");
         try {
             int randomID = Sntchr.getRandomNumber(1, 10);
-            String channelName = event.getMember().getNickname() + "'s VC - Sntchr/" + randomID;
+            String channelName = event.getMember().getEffectiveName() + "'s VC - Sntchr/" + randomID;
             Category category = event.getChannelJoined().getParentCategory();
             assert category != null;
 
