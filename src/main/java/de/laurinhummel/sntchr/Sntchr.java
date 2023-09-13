@@ -67,9 +67,8 @@ public final class Sntchr {
         builder.addSlashCommand(new LeaveCommand());
 
         //APIs
-        builder.addCommand(new FortniteStatsCommand());
-        builder.addCommand(new FortniteNewsCommand());
-        builder.addCommand(new FortniteMapCommand());
+        builder.addSlashCommand(new FortniteStatsCommand());
+        builder.addSlashCommand(new FortniteMapCommand());
         builder.addCommand(new ClashRoyaleStatsCommand());
         builder.addSlashCommand(new ValorantWeaponStats());
 
